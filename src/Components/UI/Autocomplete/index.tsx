@@ -46,7 +46,8 @@ const AutocompleteControlled = React.forwardRef(
     }: IAutocompleteControlled,
     ref,
   ) => {
-    const localRef = mask ? useMaskito({ options: mask }) : ref;
+    const maskHook = useMaskito({ options: mask });
+    const localRef = mask ? maskHook : ref;
 
     return (
       <Controller
