@@ -7,3 +7,7 @@ export interface ModelResponseDto {
   slug: string;
   car: CarResponseDto;
 }
+
+export interface ModelsByCarQuery {
+  carSlug: string;
+}

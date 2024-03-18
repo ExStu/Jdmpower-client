@@ -8,6 +8,7 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Popover, useTheme } from "@mui/material";
 
+import CarsContent from "@Components/CarsContent";
 import Container from "@Components/UI/Container";
 import { Link as MuiLink } from "@Components/UI/Link";
 import Typography from "@Components/UI/Typography";
@@ -58,7 +59,7 @@ const HeaderBottom: FC = () => {
               horizontal: "left",
             }}
           >
-            <Typography sx={{ p: 2 }}>Тачки</Typography>
+            <CarsContent />
           </Popover>
           <MuiLink
             component={Link}

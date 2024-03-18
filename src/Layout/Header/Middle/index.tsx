@@ -16,6 +16,7 @@ import CartContent from "@Components/CartContent";
 import Autocomplete from "@Components/UI/Autocomplete";
 import IconButton from "@Components/UI/Button/IconButton";
 import Container from "@Components/UI/Container";
+import Drawer from "@Components/UI/Drawer";
 import { Link as MuiLink } from "@Components/UI/Link";
 import TextField from "@Components/UI/TextField";
 
@@ -112,14 +113,14 @@ const HeaderMiddle: FC = () => {
                 <ShoppingCartIcon htmlColor={palette.uncategorized.white} />
               </IconButton>
             </Badge>
-            <SwipeableDrawer
-              anchor="right"
+            <Drawer
+              // anchor="right"
               open={open}
               onClose={toggleDrawer}
               onOpen={toggleDrawer}
             >
               <CartContent toggleDrawer={toggleDrawer} />
-            </SwipeableDrawer>
+            </Drawer>
           </SHeaderMiddleActions>
         </SHeaderMiddleWrap>
       </Container>

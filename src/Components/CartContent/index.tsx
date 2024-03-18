@@ -37,7 +37,7 @@ const CartContent: FC<ICardContent> = ({ toggleDrawer }) => {
   };
 
   return (
-    <SCartContent>
+    <>
       <SCartTop>
         <Typography variant="h4">Корзина</Typography>
         <IconButton onClick={toggleDrawer} variant="text">
@@ -76,7 +76,7 @@ const CartContent: FC<ICardContent> = ({ toggleDrawer }) => {
           </SCartBottom>
         </SCartWrap>
       )}
-    </SCartContent>
+    </>
   );
 };
 
