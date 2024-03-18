@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 "use client";
 
 import { useState } from "react";
@@ -74,9 +72,9 @@ const Auth = () => {
           <TextFieldControlled
             fullWidth
             name="email"
-            control={control}
+            // control={control}
             label="Электронная почта"
-            variant="filled"
+            // variant="filled"
             size="medium"
             rules={{
               required: {

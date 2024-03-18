@@ -49,7 +49,11 @@ export default TextField;
 
 TextField.displayName = "TextField";
 
-interface ITextFieldControlled extends UseControllerProps {
+interface ITextFieldControlled {
+  name?: string;
+  control?: any;
+  autoComplete?: string;
+  rules?: any;
   fullWidth?: boolean;
   mask?: MaskitoOptions;
   helperText?: string;
