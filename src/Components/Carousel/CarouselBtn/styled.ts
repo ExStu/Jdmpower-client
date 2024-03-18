@@ -6,7 +6,6 @@ export const SCarouselBtn = styled("button")(({ theme: { palette } }) => ({
   justifyContent: "center",
   textAlign: "center",
   padding: "4px",
-  border: "none",
   backgroundColor: "transparent",
   position: "absolute",
   top: "110%",
