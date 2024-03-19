@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SCarSelection } from "./styled";
+import { SCarSelection, SCarSelectionBg } from "./styled";
 
 export const metadata = {
   title: "JdmPower | Поиск товаров по машине",
@@ -8,7 +8,11 @@ export const metadata = {
 };
 
 const CarSelectionLayout = ({ children }: { children: React.ReactNode }) => {
-  return <SCarSelection>{children}</SCarSelection>;
+  return (
+    <SCarSelectionBg>
+      <SCarSelection>{children}</SCarSelection>
+    </SCarSelectionBg>
+  );
 };
 
 export default CarSelectionLayout;

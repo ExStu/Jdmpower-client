@@ -9,10 +9,10 @@ import ProductCard from "@Components/ProductCard";
 import SectionTitle from "@Components/SectionTitle";
 import Box from "@Components/UI/Box";
 import Container from "@Components/UI/Container";
-import Skeleton from "@Components/UI/Skeleton";
 
 import { SProducts } from "@app/(home)/_Components/Products/styled";
 import { skeletonCount } from "@constants/skeletonCount";
+import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const Products: FC = () => {
   const { data: productsData, isLoading: productsLoading } =

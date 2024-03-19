@@ -16,7 +16,6 @@ import Container from "@Components/UI/Container";
 import Divider from "@Components/UI/Divider";
 import { Link as MuiLink } from "@Components/UI/Link";
 import { SelectControlled } from "@Components/UI/Select";
-import Skeleton from "@Components/UI/Skeleton";
 
 import {
   SHeaderBorderSection,
@@ -27,6 +26,7 @@ import {
 
 import { useActions } from "@Hooks/useActions";
 import { useAppSelector } from "@Hooks/useRedux";
+import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const HeaderTop: FC = () => {
   const { palette } = useTheme();

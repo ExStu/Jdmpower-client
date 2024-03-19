@@ -59,7 +59,7 @@ const HeaderBottom: FC = () => {
               horizontal: "left",
             }}
           >
-            <CarsContent />
+            <CarsContent handleClose={handleClose} />
           </Popover>
           <MuiLink
             component={Link}

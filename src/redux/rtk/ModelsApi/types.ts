@@ -8,6 +8,6 @@ export interface ModelResponseDto {
   car: CarResponseDto;
 }
 
-export interface ModelsByCarQuery {
+export interface ModelsByCarArg {
   carSlug: string;
 }

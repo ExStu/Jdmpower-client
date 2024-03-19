@@ -12,3 +12,7 @@ export interface GenerationResponseDto {
   yearTo: string;
   model: ModelResponseDto;
 }
+
+export interface GenerationsByModelArg {
+  modelSlug: string;
+}

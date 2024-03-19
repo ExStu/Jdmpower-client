@@ -6,10 +6,10 @@ import NewsCard from "@Components/NewsCard";
 import SectionTitle from "@Components/SectionTitle";
 import Box from "@Components/UI/Box";
 import Container from "@Components/UI/Container";
-import Skeleton from "@Components/UI/Skeleton";
 
 import { SNewsList } from "@app/news/styled";
 import { skeletonCount } from "@constants/skeletonCount";
+import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const News = () => {
   const { data: newsData, isLoading: newsLoading } = useGetNewsQuery();
