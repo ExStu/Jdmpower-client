@@ -16,3 +16,7 @@ export interface GenerationResponseDto {
 export interface GenerationsByModelArg {
   modelSlug: string;
 }
+
+export interface GenerationsByIdArg {
+  generationId: string;
+}

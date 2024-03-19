@@ -1,6 +1,10 @@
 import { jdmpowerApi as api } from "@redux/api";
 
-import { GenerationResponseDto, GenerationsByModelArg } from "./types";
+import {
+  GenerationResponseDto,
+  GenerationsByIdArg,
+  GenerationsByModelArg,
+} from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -13,6 +17,11 @@ const injectedRtkApi = api.injectEndpoints({
     >({
       query: (queryArg) => ({ url: `/generations/by-model/${queryArg.modelSlug}` }),
     }),
+    getGenerationById: build.query<GenerationResponseDto, GenerationsByIdArg>({
+      query: (queryArg) => ({
+        url: `/generations/${queryArg.generationId}`,
+      }),
+    }),
   }),
 });
 export { injectedRtkApi as GenerationsApi };
@@ -22,4 +31,6 @@ export const {
   useLazyGetGenerationsQuery,
   useGetGenerationsByModelQuery,
   useLazyGetGenerationsByModelQuery,
+  useGetGenerationByIdQuery,
+  useLazyGetGenerationByIdQuery,
 } = injectedRtkApi;
