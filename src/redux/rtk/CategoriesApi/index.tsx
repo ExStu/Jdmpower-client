@@ -4,7 +4,7 @@ import { CategoryResponseDto } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getCategories: build.query<CategoryResponseDto, void>({
+    getCategories: build.query<CategoryResponseDto[], void>({
       query: () => ({ url: "/categories" }),
     }),
   }),

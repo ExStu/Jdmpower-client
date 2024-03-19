@@ -1,6 +1,6 @@
 import React from "react";
 
-import { SShop } from "./styled";
+import { SShop, SShopBg } from "./styled";
 
 export const metadata = {
   title: "JdmPower | Каталог магазина",
@@ -8,7 +8,11 @@ export const metadata = {
 };
 
 const ShopLayout = ({ children }: { children: React.ReactNode }) => {
-  return <SShop>{children}</SShop>;
+  return (
+    <SShopBg>
+      <SShop>{children}</SShop>
+    </SShopBg>
+  );
 };
 
 export default ShopLayout;

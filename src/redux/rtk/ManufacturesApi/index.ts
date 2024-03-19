@@ -4,7 +4,7 @@ import { ManufactureResponseDto } from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getManufactures: build.query<ManufactureResponseDto, void>({
+    getManufactures: build.query<ManufactureResponseDto[], void>({
       query: () => ({ url: "/manufactures" }),
     }),
   }),
