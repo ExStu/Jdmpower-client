@@ -16,7 +16,7 @@ const ModelSelection: FC = () => {
   return modelsByCarLoading || !modelsByCarData ? (
     <Typography>Loading...</Typography>
   ) : (
-    modelsByCarData.map((item) => <Typography>{item.name}</Typography>)
+    modelsByCarData.map((item) => <Typography key={item.id}>{item.name}</Typography>)
   );
 };
 
