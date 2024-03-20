@@ -8,14 +8,15 @@ import SectionTitle from "@Components/SectionTitle";
 import Box from "@Components/UI/Box";
 import Container from "@Components/UI/Container";
 
+import { skeletonArray } from "@utils/skeletonCount";
+
 import { SNews } from "./styled";
 
-import { skeletonCount } from "@constants/skeletonCount";
 import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const News = () => {
   const { data: newsData, isLoading: newsLoading } = useGetNewsQuery();
-
+  const skeletonCount = skeletonArray(4);
   return (
     <SNews>
       <Container>

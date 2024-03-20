@@ -2,20 +2,20 @@ import { FC } from "react";
 
 import { Controller, useForm } from "react-hook-form";
 
-import { ManufactureResponseDto } from "@redux/rtk/ManufacturesApi/types";
+import { CategoryResponseDto } from "@redux/rtk/CategoriesApi/types";
 
 import Checkbox from "@Components/UI/Checkbox";
 import { FormControl } from "@Components/UI/FormControl";
 import { FormControlLabel } from "@Components/UI/FormControlLabel";
 import Typography from "@Components/UI/Typography";
 
-import { SCheckboxesWrap } from "./styled";
+import { SFiltersWrap } from "../styled";
 
-interface IManufactures {
-  manufactures: ManufactureResponseDto[];
+interface ICategoryFilters {
+  categories: CategoryResponseDto[];
 }
 
-const Manufactures: FC<IManufactures> = ({ manufactures }) => {
+const CategoryFilters: FC<ICategoryFilters> = ({ categories }) => {
   const { control } = useForm();
 
   const handleCheckbox = (slug: string) => {
@@ -23,8 +23,8 @@ const Manufactures: FC<IManufactures> = ({ manufactures }) => {
   };
 
   return (
-    <SCheckboxesWrap>
-      {manufactures.map((item) => (
+    <SFiltersWrap>
+      {categories.map((item) => (
         <FormControl fullWidth key={item.id}>
           <FormControlLabel
             control={
@@ -47,8 +47,8 @@ const Manufactures: FC<IManufactures> = ({ manufactures }) => {
           />
         </FormControl>
       ))}
-    </SCheckboxesWrap>
+    </SFiltersWrap>
   );
 };
 
-export default Manufactures;
+export default CategoryFilters;

@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect } from "react";
 
-import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 import { useGetCategoriesQuery } from "@redux/rtk/CategoriesApi";
@@ -13,36 +12,36 @@ import { getActiveCarSelected } from "@redux/selectors";
 
 import { useTheme } from "@mui/material";
 
+import CarBanner from "@Components/CarBanner";
 import ProductCard from "@Components/ProductCard";
 import SectionTitle from "@Components/SectionTitle";
-import Box from "@Components/UI/Box";
 import Container from "@Components/UI/Container";
 import Divider from "@Components/UI/Divider";
 import CircularLoader from "@Components/UI/Loaders/Circular";
+import Skeleton from "@Components/UI/Loaders/Skeleton";
 import Typography from "@Components/UI/Typography";
 
+import { skeletonArray } from "@utils/skeletonCount";
+
+import CategoryFilters from "./_Components/CategoryFilters";
+import ManufactureFilters from "./_Components/ManufactureFilters";
 import {
-  SCarSelectionClear,
-  SCarSelectionContentWrap,
-  SCarSelectionDescWrap,
-  SCarSelectionWrap,
   SColumnsLayoutMainWrap,
   SColumnsLayoutPrimaryWrap,
   SColumnsLayoutSecondaryWrap,
   SFiltersTitle,
   SPrimaryLayoutWrap,
+  SProductsSkeletonWrap,
   SProductsWrap,
   SSecondaryLayoutWrap,
 } from "./styled";
 
-import { useActions } from "@Hooks/useActions";
 import { useAppSelector } from "@Hooks/useRedux";
-import Categories from "@app/shop/_Components/Categories";
-import Manufactures from "@app/shop/_Components/Manufactures";
+import InfoWithSort from "@app/shop/_Components/InfoWithSort";
 
 const Shop = () => {
   const { palette } = useTheme();
-  const { resetCarSelection } = useActions();
+  const productsSkeletonCount = skeletonArray(6);
   const activeCar = useAppSelector(getActiveCarSelected);
   const searchParams = useSearchParams();
 
@@ -63,10 +62,6 @@ const Shop = () => {
   const [getAllProducts, { data: productsData, isLoading: productsLoading }] =
     useLazyGetAllProductsQuery();
 
-  const handleClearActiveCar = () => {
-    resetCarSelection();
-  };
-
   useEffect(() => {
     if (activeCar) {
       getAllProducts({
@@ -86,65 +81,54 @@ const Shop = () => {
           !categoriesData ||
           manufacturesLoading ||
           !manufacturesData ? (
-            <CircularLoader />
+            <Skeleton variant="rounded" width={380} height={560} animation="pulse" />
           ) : (
             <SSecondaryLayoutWrap>
               <SFiltersTitle>
                 <Typography variant="h4">Категории</Typography>
                 <Divider />
               </SFiltersTitle>
-              <Categories categories={categoriesData} />
+              <CategoryFilters categories={categoriesData} />
               <SFiltersTitle>
                 <Typography variant="h4">Производители</Typography>
                 <Divider />
               </SFiltersTitle>
-              <Manufactures manufactures={manufacturesData} />
+              <ManufactureFilters manufactures={manufacturesData} />
             </SSecondaryLayoutWrap>
           )}
         </SColumnsLayoutSecondaryWrap>
         <SColumnsLayoutPrimaryWrap>
           <SPrimaryLayoutWrap>
-            {activeCar && (
-              <SCarSelectionWrap>
-                <Image
-                  src={activeCar.image}
-                  alt={activeCar.name}
-                  width={230}
-                  height={230}
-                  style={{ objectFit: "contain" }}
-                />
-                <SCarSelectionContentWrap>
-                  <Typography variant="h3">
-                    {`${activeCar.model.car.name} ${activeCar.model.name} ${activeCar.name}`}
-                  </Typography>
-                  <SCarSelectionDescWrap>
-                    <Typography variant="body2">Номер двигателя: </Typography>
-                    <Typography variant="bodyS3">{activeCar.engine}</Typography>
-                  </SCarSelectionDescWrap>
-                  <SCarSelectionDescWrap>
-                    <Typography variant="body2">Номер кузова: </Typography>
-                    <Typography variant="bodyS3">{activeCar.chassis}</Typography>
-                  </SCarSelectionDescWrap>
-                  <SCarSelectionDescWrap>
-                    <Typography variant="body2">Годы выпуска: </Typography>
-                    <Typography variant="bodyS3">
-                      {activeCar.yearFrom + "-" + activeCar.yearTo}
-                    </Typography>
-                  </SCarSelectionDescWrap>
-                </SCarSelectionContentWrap>
-                <SCarSelectionClear onClick={handleClearActiveCar}>
-                  Очистить
-                </SCarSelectionClear>
-              </SCarSelectionWrap>
-            )}
+            {activeCar && <CarBanner item={activeCar} />}
             {productsLoading || !productsData ? (
-              <CircularLoader />
+              <>
+                <Skeleton
+                  variant="rounded"
+                  height={44}
+                  animation="pulse"
+                  sx={{ width: "100%" }}
+                />
+                <SProductsSkeletonWrap>
+                  {productsSkeletonCount.map((_item, index) => (
+                    <Skeleton
+                      key={index}
+                      variant="rounded"
+                      width={330}
+                      height={300}
+                      animation="pulse"
+                    />
+                  ))}
+                </SProductsSkeletonWrap>
+              </>
             ) : (
-              <SProductsWrap>
-                {productsData.products.map((item) => (
-                  <ProductCard key={item.id} item={item} />
-                ))}
-              </SProductsWrap>
+              <>
+                <InfoWithSort totalLength={productsData.totalLength} />
+                <SProductsWrap>
+                  {productsData.products.map((item) => (
+                    <ProductCard key={item.id} item={item} />
+                  ))}
+                </SProductsWrap>
+              </>
             )}
           </SPrimaryLayoutWrap>
         </SColumnsLayoutPrimaryWrap>

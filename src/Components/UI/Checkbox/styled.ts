@@ -1,4 +1,3 @@
-import CheckIcon from "@mui/icons-material/Check";
 import { Checkbox } from "@mui/material";
 import { styled } from "@mui/material/styles";
 
@@ -40,7 +39,7 @@ export const SCheckedCheckboxIcon = styled(SCheckboxIcon)<ICheckbox>(
       ? `1px solid ${palette.error.main}`
       : `1px solid ${palette.primary.main}`,
     backgroundColor: error ? palette.error.main : palette.primary.main,
-    backgroundImage: `url("${CheckIcon}")`,
+    backgroundImage: "url('/icons/checkIcon/default.svg')",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: size === "small" ? "auto" : "12px auto",

@@ -21,6 +21,8 @@ import {
   SHeaderBottomWrap,
 } from "../styled";
 
+import VkIcon from "@shared/Icons/Vk";
+
 const HeaderBottom: FC = () => {
   const { palette } = useTheme();
 
@@ -105,7 +107,7 @@ const HeaderBottom: FC = () => {
               rel="noopener noreferrer"
               variant="bodyS1"
             >
-              <Image src={vkIcon} alt="Иконка вконтакте" width={24} height={24} />
+              <VkIcon />
             </MuiLink>
           </SHeaderBottomSocials>
         </SHeaderBottomWrap>

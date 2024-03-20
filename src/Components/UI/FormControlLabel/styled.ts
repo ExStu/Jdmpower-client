@@ -7,7 +7,7 @@ export const SFormControlLabel = styled(FormControlLabel)(
       marginLeft: 0,
       marginRight: 0,
       gap: "8px",
-      alignItems: "flex-start",
+      alignItems: "center",
       color: palette.secondary.main,
     },
   }),

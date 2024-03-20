@@ -31,6 +31,8 @@ export const SLink = styled(Link, {
       textTransform: "uppercase",
 
       "& svg": {
+        width: "24px",
+        height: "24px",
         transition: "color .15s ease-in",
       },
 
