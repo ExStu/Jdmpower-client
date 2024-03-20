@@ -2,6 +2,8 @@
 
 import { styled } from "@mui/material/styles";
 
+import Button from "@Components/UI/Button";
+
 import bg from "../../../public/images/car-selection-bg.webp";
 
 export const SShopBg = styled("div")(({ theme: { palette } }) => ({
@@ -60,25 +62,34 @@ export const SFiltersTitle = styled("div")(() => ({
 }));
 
 export const SCarSelectionWrap = styled("div")(({ theme: { palette } }) => ({
+  position: "relative",
   display: "flex",
-  // border: `1px solid ${palette.uncategorized.border}`,
+  paddingLeft: "20px",
   borderRadius: "12px",
   overflow: "hidden",
+  background: `linear-gradient(0deg, rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.3) 0%), url(${bg.src})`,
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center center",
+  backgroundSize: "cover",
+}));
+
+export const SCarSelectionClear = styled(Button)(() => ({
+  position: "absolute",
+  top: "20px",
+  right: "20px",
 }));
 
 export const SCarSelectionContentWrap = styled("div")(({ theme: { palette } }) => ({
   display: "flex",
   flexDirection: "column",
-  alignItems: "flex-end",
+  alignItems: "flex-start",
+  justifyContent: "center",
   padding: "20px 40px",
   gap: "12px",
   width: "100%",
   height: "100%",
-  background: `linear-gradient(0deg, rgba(0, 0, 0, 0.4) 100%, rgba(0, 0, 0, 0.3) 0%), url(${bg.src})`,
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center center",
-  backgroundSize: "cover",
-  "& p": {
+
+  "& p, h3": {
     color: palette.common.white,
   },
 }));
@@ -87,4 +98,10 @@ export const SProductsWrap = styled("div")(() => ({
   display: "grid",
   gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
   gap: "20px",
+}));
+
+export const SCarSelectionDescWrap = styled("div")(() => ({
+  display: "flex",
+  alignItems: "flex-end",
+  gap: "8px",
 }));

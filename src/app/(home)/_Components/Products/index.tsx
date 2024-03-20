@@ -15,8 +15,9 @@ import { skeletonCount } from "@constants/skeletonCount";
 import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const Products: FC = () => {
-  const { data: productsData, isLoading: productsLoading } =
-    useGetAllProductsQuery();
+  const { data: productsData, isLoading: productsLoading } = useGetAllProductsQuery(
+    {},
+  );
 
   return (
     <SProducts>

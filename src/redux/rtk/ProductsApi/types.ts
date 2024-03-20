@@ -58,3 +58,15 @@ export interface GetAllProductResponseDto {
   pageSize: number;
   pageNumber: number;
 }
+
+export interface GetAllProductQueryDto {
+  sort?: ProductSortEnum;
+  searchTerm?: string;
+  ratings?: string;
+  minPrice?: string;
+  maxPrice?: string;
+  categoryId?: string;
+  manufactureId?: string;
+  generationId?: string;
+  pageNumber?: string;
+}

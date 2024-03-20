@@ -9,17 +9,30 @@ import { SCarSelectionCard } from "@Components/SelectionCards/CarSelectionCard/s
 import { Link as MuiLink } from "@Components/UI/Link";
 import Typography from "@Components/UI/Typography";
 
+import { useActions } from "@Hooks/useActions";
+
 interface ICarSelectionCard {
   item: GenerationResponseDto;
   href?: string;
 }
 
 const GenerationSelectionCard: FC<ICarSelectionCard> = ({ item, href }) => {
-  const temp = 1;
+  const { setActiveCar } = useActions();
+
+  const handleSaveCar = (item: GenerationResponseDto) => {
+    setActiveCar(item);
+  };
+
   return (
-    <MuiLink component={Link} href={href}>
+    <MuiLink component={Link} href={href} onClick={() => handleSaveCar(item)}>
       <SCarSelectionCard>
-        <Image src={item.image} alt={item.name} width={150} height={150} />
+        <Image
+          src={item.image}
+          alt={item.name}
+          width={150}
+          height={150}
+          style={{ objectFit: "contain" }}
+        />
         <Typography variant="bodyS1">{`Поколение: ${item.name}`}</Typography>
         <Typography variant="bodyS1">{`Номер кузова: ${item.chassis}`}</Typography>
         <Typography variant="bodyS1">{`Двигатель: ${item.engine}`}</Typography>

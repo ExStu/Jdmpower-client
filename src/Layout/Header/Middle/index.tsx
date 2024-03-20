@@ -39,8 +39,9 @@ const HeaderMiddle: FC = () => {
   const [open, setOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const { data: productsData, isLoading: productsLoading } =
-    useGetAllProductsQuery();
+  const { data: productsData, isLoading: productsLoading } = useGetAllProductsQuery(
+    {},
+  );
   const toggleDrawer = () => {
     setOpen((prevState) => !prevState);
   };

@@ -16,24 +16,10 @@ import { useCreateParams } from "@Hooks/useCreateParams";
 
 const GenerationSelection: FC = () => {
   const { modelSlug } = useParams();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { data: generationsData, isLoading: generationsLoading } =
     useGetGenerationsByModelQuery({
       modelSlug: modelSlug as string,
     });
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams.toString());
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
-
-  console.log("search: ", pathname + "?" + createQueryString("generationId", "8"));
 
   return (
     <Container>
@@ -42,11 +28,7 @@ const GenerationSelection: FC = () => {
       ) : (
         <SGenerationSelection>
           {generationsData.map((item) => (
-            <GenerationSelectionCard
-              key={item.id}
-              item={item}
-              href={"/shop?" + createQueryString("generationId", item.id.toString())}
-            />
+            <GenerationSelectionCard key={item.id} item={item} href="/shop" />
           ))}
         </SGenerationSelection>
       )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -9,6 +9,7 @@ import { useGetCategoriesQuery } from "@redux/rtk/CategoriesApi";
 import { useLazyGetGenerationByIdQuery } from "@redux/rtk/GenerationsApi";
 import { useGetManufacturesQuery } from "@redux/rtk/ManufacturesApi";
 import { useLazyGetAllProductsQuery } from "@redux/rtk/ProductsApi";
+import { getActiveCarSelected } from "@redux/selectors";
 
 import { useTheme } from "@mui/material";
 
@@ -21,7 +22,9 @@ import CircularLoader from "@Components/UI/Loaders/Circular";
 import Typography from "@Components/UI/Typography";
 
 import {
+  SCarSelectionClear,
   SCarSelectionContentWrap,
+  SCarSelectionDescWrap,
   SCarSelectionWrap,
   SColumnsLayoutMainWrap,
   SColumnsLayoutPrimaryWrap,
@@ -32,16 +35,27 @@ import {
   SSecondaryLayoutWrap,
 } from "./styled";
 
+import { useActions } from "@Hooks/useActions";
+import { useAppSelector } from "@Hooks/useRedux";
 import Categories from "@app/shop/_Components/Categories";
 import Manufactures from "@app/shop/_Components/Manufactures";
 
 const Shop = () => {
   const { palette } = useTheme();
+  const { resetCarSelection } = useActions();
+  const activeCar = useAppSelector(getActiveCarSelected);
   const searchParams = useSearchParams();
-  const generationId = searchParams.get("generationId");
 
-  const [getGenerationById, { data: generationData, isLoading: generationLoading }] =
-    useLazyGetGenerationByIdQuery();
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams],
+  );
+
   const { data: categoriesData, isLoading: categoriesLoading } =
     useGetCategoriesQuery();
   const { data: manufacturesData, isLoading: manufacturesLoading } =
@@ -49,12 +63,19 @@ const Shop = () => {
   const [getAllProducts, { data: productsData, isLoading: productsLoading }] =
     useLazyGetAllProductsQuery();
 
+  const handleClearActiveCar = () => {
+    resetCarSelection();
+  };
+
   useEffect(() => {
-    if (generationId) {
-      getGenerationById({ generationId });
+    if (activeCar) {
+      getAllProducts({
+        generationId: activeCar.id.toString(),
+      });
+    } else {
+      getAllProducts({});
     }
-    getAllProducts();
-  }, [getGenerationById, generationId, getAllProducts]);
+  }, [getAllProducts, activeCar]);
 
   return (
     <Container>
@@ -83,35 +104,38 @@ const Shop = () => {
         </SColumnsLayoutSecondaryWrap>
         <SColumnsLayoutPrimaryWrap>
           <SPrimaryLayoutWrap>
-            {generationId && (generationLoading || !generationData) ? (
-              <CircularLoader />
-            ) : (
-              generationData && (
-                <SCarSelectionWrap>
-                  <Image
-                    src={generationData.image}
-                    alt={generationData.name}
-                    width={230}
-                    height={230}
-                  />
-                  <SCarSelectionContentWrap>
+            {activeCar && (
+              <SCarSelectionWrap>
+                <Image
+                  src={activeCar.image}
+                  alt={activeCar.name}
+                  width={230}
+                  height={230}
+                  style={{ objectFit: "contain" }}
+                />
+                <SCarSelectionContentWrap>
+                  <Typography variant="h3">
+                    {`${activeCar.model.car.name} ${activeCar.model.name} ${activeCar.name}`}
+                  </Typography>
+                  <SCarSelectionDescWrap>
+                    <Typography variant="body2">Номер двигателя: </Typography>
+                    <Typography variant="bodyS3">{activeCar.engine}</Typography>
+                  </SCarSelectionDescWrap>
+                  <SCarSelectionDescWrap>
+                    <Typography variant="body2">Номер кузова: </Typography>
+                    <Typography variant="bodyS3">{activeCar.chassis}</Typography>
+                  </SCarSelectionDescWrap>
+                  <SCarSelectionDescWrap>
+                    <Typography variant="body2">Годы выпуска: </Typography>
                     <Typography variant="bodyS3">
-                      {generationData.model.car.name}
+                      {activeCar.yearFrom + "-" + activeCar.yearTo}
                     </Typography>
-                    <Typography variant="bodyS3">
-                      {generationData.model.name}
-                    </Typography>
-                    <Typography variant="bodyS3">{generationData.name}</Typography>
-                    <Typography variant="bodyS3">{generationData.engine}</Typography>
-                    <Typography variant="bodyS3">
-                      {generationData.chassis}
-                    </Typography>
-                    <Typography variant="bodyS3">
-                      {generationData.yearFrom + "-" + generationData.yearTo}
-                    </Typography>
-                  </SCarSelectionContentWrap>
-                </SCarSelectionWrap>
-              )
+                  </SCarSelectionDescWrap>
+                </SCarSelectionContentWrap>
+                <SCarSelectionClear onClick={handleClearActiveCar}>
+                  Очистить
+                </SCarSelectionClear>
+              </SCarSelectionWrap>
             )}
             {productsLoading || !productsData ? (
               <CircularLoader />

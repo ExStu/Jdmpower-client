@@ -12,6 +12,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "loremflickr.com",
         port: ""
+      },
+      {
+        protocol: "https",
+        hostname: "i.postimg.cc",
+        port: ""
       }
     ]
   }

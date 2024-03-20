@@ -11,6 +11,7 @@ import {
 
 import { jdmpowerApi } from "@redux/api";
 
+import { carSelectionSlice } from "@slices/carSelection";
 import { cartSlice } from "@slices/cart";
 import { currencySlice } from "@slices/currency";
 import { userSlice } from "@slices/user";
@@ -20,6 +21,7 @@ const isClient = typeof window !== "undefined";
 const combinedReducers = combineReducers({
   cart: cartSlice.reducer,
   currency: currencySlice.reducer,
+  carSelection: carSelectionSlice.reducer,
   user: userSlice.reducer,
   // filters: filtersSlice.reducer,
   [jdmpowerApi.reducerPath]: jdmpowerApi.reducer,
