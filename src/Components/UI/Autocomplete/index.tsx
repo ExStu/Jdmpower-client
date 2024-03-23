@@ -96,8 +96,8 @@ const AutocompleteControlled = React.forwardRef(
                 label={label}
                 placeholder={placeholder}
                 // variant="filled"
-                helperText={error ? error.message : null}
-                error={!!error}
+                // helperText={error ? error.message : null}
+                // error={!!error}
               />
             )}
             {...restProps}

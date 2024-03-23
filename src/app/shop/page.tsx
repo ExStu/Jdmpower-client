@@ -48,6 +48,7 @@ import {
 import { useFilters } from "@Hooks/useFilters";
 import { useAppSelector } from "@Hooks/useRedux";
 import InfoWithSort from "@app/shop/_Components/InfoWithSort";
+import PriceRange from "@app/shop/_Components/PriceRange";
 
 const Shop = () => {
   const { palette } = useTheme();
@@ -90,6 +91,9 @@ const Shop = () => {
       );
     }
   }, [activeCar, pathname, createQueryString, router]);
+
+  console.log("paramsMin: ", searchParams.get(GetAllProductsQueryEnum.MIN_PRICE));
+  console.log("paramsMax: ", searchParams.get(GetAllProductsQueryEnum.MAX_PRICE));
 
   useEffect(() => {
     if (searchParams.has(GetAllProductsQueryEnum.PAGE_NUMBER)) {
@@ -142,6 +146,23 @@ const Shop = () => {
                 <Divider />
               </SFiltersTitle>
               <CategoryFilters categories={categoriesData} />
+              <SFiltersTitle>
+                <Typography variant="h4">Цена</Typography>
+                <Divider />
+              </SFiltersTitle>
+              {productsLoading || !productsData ? (
+                <Skeleton
+                  variant="rounded"
+                  sx={{ width: "100%" }}
+                  height={50}
+                  animation="pulse"
+                />
+              ) : (
+                <PriceRange
+                  minPrice={productsData.minPrice}
+                  maxPrice={productsData.maxPrice}
+                />
+              )}
               <SFiltersTitle>
                 <Typography variant="h4">Производители</Typography>
                 <Divider />

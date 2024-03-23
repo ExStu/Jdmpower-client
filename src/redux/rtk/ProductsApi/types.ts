@@ -69,6 +69,8 @@ export interface GetAllProductResponseDto {
   orderBy: ProductSortEnum;
   pageSize: number;
   pageNumber: number;
+  minPrice: number;
+  maxPrice: number;
 }
 
 export interface GetAllProductQueryDto {

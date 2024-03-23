@@ -37,6 +37,7 @@ export const useFilters = () => {
     const newParams = new URLSearchParams(searchParams.toString());
 
     if (value) {
+      console.log("updateValue: ", value);
       newParams.set(key, String(value));
     } else {
       newParams.delete(key);

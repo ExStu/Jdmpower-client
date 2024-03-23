@@ -13,7 +13,10 @@ import {
   useLazyGetAllProductsQuery,
   useLazyGetProductsBySearchQuery,
 } from "@redux/rtk/ProductsApi";
-import { ProductResponseDto } from "@redux/rtk/ProductsApi/types";
+import {
+  GetAllProductsQueryEnum,
+  ProductResponseDto,
+} from "@redux/rtk/ProductsApi/types";
 import { getCartItems } from "@redux/selectors";
 
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -26,13 +29,18 @@ import IconButton from "@Components/UI/Button/IconButton";
 import Container from "@Components/UI/Container";
 import Drawer from "@Components/UI/Drawer";
 import { Link as MuiLink } from "@Components/UI/Link";
+import CircularLoader from "@Components/UI/Loaders/Circular";
+import Skeleton from "@Components/UI/Loaders/Skeleton";
 import TextField from "@Components/UI/TextField";
 import Typography from "@Components/UI/Typography";
+
+import { skeletonArray } from "@utils/skeletonCount";
 
 import {
   SHeaderBorderSection,
   SHeaderMiddleActions,
   SHeaderMiddleSearchBtn,
+  SHeaderMiddleSearchNotFound,
   SHeaderMiddleSearchOptionContent,
   SHeaderMiddleSearchOptionWrap,
   SHeaderMiddleSearchWrap,
@@ -44,6 +52,7 @@ import { useAppSelector } from "@Hooks/useRedux";
 
 const HeaderMiddle: FC = () => {
   const { palette } = useTheme();
+  const skeletonCount = skeletonArray(3);
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -58,7 +67,11 @@ const HeaderMiddle: FC = () => {
 
   const [
     searchProducts,
-    { data: searchProductsData, isLoading: searchProductsLoading },
+    {
+      data: searchProductsData,
+      isLoading: searchProductsLoading,
+      isFetching: searchProductsFetching,
+    },
   ] = useLazyGetProductsBySearchQuery();
 
   const toggleDrawer = () => {
@@ -72,7 +85,17 @@ const HeaderMiddle: FC = () => {
   }, 300);
 
   const handleSearch = (value: string) => {
-    router.push(pathname + "?" + createQueryString("searchTerm", value));
+    if (value) {
+      router.push(
+        pathname +
+          "?" +
+          createQueryString(GetAllProductsQueryEnum.SEARCH_TERM, value),
+      );
+    }
+  };
+
+  const handleAutocompleteValue = (value: string) => {
+    setAutocompleteValue(value);
   };
 
   useEffect(() => {
@@ -112,7 +135,7 @@ const HeaderMiddle: FC = () => {
                   />
                   <SHeaderMiddleSearchOptionContent>
                     <Typography>{option.name}</Typography>
-                    <Typography>{option.sku}</Typography>
+                    <Typography>Артикул: {option.sku}</Typography>
                   </SHeaderMiddleSearchOptionContent>
                 </SHeaderMiddleSearchOptionWrap>
               )}
@@ -123,9 +146,18 @@ const HeaderMiddle: FC = () => {
                 setSearchQuery(v);
               }}
               onSelect={(e, v) => {
-                handleSearch(v.name);
+                handleAutocompleteValue(v);
               }}
               placeholder="Поиск по названию или артикулу"
+              loading={searchProductsLoading || searchProductsFetching}
+              loadingText={skeletonCount.map((_item, index) => (
+                <Skeleton key={index} sx={{ width: "100%" }} height={60} />
+              ))}
+              noOptionsText={
+                <SHeaderMiddleSearchNotFound>
+                  <Typography>Ничего не нашлось</Typography>
+                </SHeaderMiddleSearchNotFound>
+              }
             />
             <SHeaderMiddleSearchBtn onClick={() => handleSearch(searchQuery)}>
               Поиск

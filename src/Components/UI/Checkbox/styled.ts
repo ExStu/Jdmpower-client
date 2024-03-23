@@ -17,7 +17,7 @@ export const SCheckboxIcon = styled("span")<ICheckbox>(
     height: size === "small" ? 20 : 24,
     border: error
       ? `1px solid ${palette.error.main}`
-      : `1px solid ${palette.grey[100]}`,
+      : `1px solid ${palette.grey[300]}`,
     backgroundColor: palette.uncategorized.white,
     transition: "border-color .1s ease-in",
     "input:hover ~ &": {

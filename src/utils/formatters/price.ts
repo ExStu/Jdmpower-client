@@ -9,6 +9,17 @@ export const currencyFormat = (currency: string) => {
   return currencyMap[currency] || currency;
 };
 
+export const addCurrencyToPrice = (
+  productPrice: number,
+  currency: CurrencyResponseDto,
+) => {
+  return `${productPrice.toLocaleString("ru-RU")} ${currencyFormat(currency.name)}`;
+};
+
+export const getPriceNumber = (productPrice: number, currencyValue: number) => {
+  return Number((productPrice * currencyValue).toFixed(2));
+};
+
 export const getPrice = (productPrice: number, currencyValue: number) => {
   return Number((productPrice * currencyValue).toFixed(2)).toLocaleString("ru-RU");
 };

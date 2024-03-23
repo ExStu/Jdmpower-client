@@ -9,6 +9,7 @@ const colors = {
     main: "#f8402f",
     light: "#fc5231",
     dark: "#f03321",
+    background: "#fc52312e",
   },
   secondary: {
     main: "#282622",

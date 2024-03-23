@@ -1,7 +1,5 @@
 import { FC, useEffect } from "react";
 
-import { log } from "next/dist/server/typescript/utils";
-import Image from "next/image";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -10,6 +8,7 @@ import {
   ProductSortEnum,
 } from "@redux/rtk/ProductsApi/types";
 
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
 import { MenuItem } from "@mui/material";
 import { SelectChangeEvent } from "@mui/material/Select";
 
@@ -71,8 +70,9 @@ const InfoWithSort: FC<IInfoWithSort> = ({ totalLength }) => {
           ))}
         </SelectControlled>
       </SHeaderFormSelect>
-      <Button variant="outlined" onClick={handleClearFilters}>
-        Сбросить фильтры
+      <Button variant="outlined" size="medium" onClick={handleClearFilters}>
+        <FilterAltOffIcon />
+        Сбросить
       </Button>
     </SInfoWithSort>
   );

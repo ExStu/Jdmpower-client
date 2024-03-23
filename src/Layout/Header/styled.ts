@@ -51,9 +51,15 @@ export const SHeaderMiddleSearchWrap = styled("div")(() => ({
   width: "50%",
 }));
 
-export const SHeaderMiddleSearchOptionWrap = styled(Box)(() => ({
+export const SHeaderMiddleSearchOptionWrap = styled("li")(() => ({
   display: "flex",
   gap: "8px",
+}));
+
+export const SHeaderMiddleSearchNotFound = styled("div")(() => ({
+  display: "flex",
+  justifyContent: "center",
+  height: "60px",
 }));
 
 export const SHeaderMiddleSearchOptionContent = styled("div")(() => ({
