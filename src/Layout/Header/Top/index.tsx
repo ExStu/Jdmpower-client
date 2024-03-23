@@ -26,6 +26,8 @@ import {
 
 import { useActions } from "@Hooks/useActions";
 import { useAppSelector } from "@Hooks/useRedux";
+import PhoneLink from "@Layout/Header/Components/PhoneLink";
+import { ContactsEnum, KrasnodarPhoneUrl, MoscowPhoneUrl } from "@constants/links";
 import Skeleton from "Components/UI/Loaders/Skeleton";
 
 const HeaderTop: FC = () => {
@@ -89,25 +91,21 @@ const HeaderTop: FC = () => {
             </SHeaderFormSelect>
           )}
           <SHeaderTopPhonesWrap>
-            <MuiLink component={Link} href="tel:89191025217">
-              <CallIcon
-                htmlColor={palette.uncategorized.white}
-                sx={{ fontSize: 20 }}
-              />
-              +7 (919) 102-52-17
-            </MuiLink>
+            <PhoneLink
+              href={MoscowPhoneUrl}
+              text={ContactsEnum.MOSCOW_PHONE}
+              placeText="Москва"
+            />
             <Divider
               orientation="vertical"
               flexItem
               sx={{ borderColor: palette.uncategorized.white, opacity: "0.5" }}
             />
-            <MuiLink component={Link} href="tel:+79288807252">
-              <CallIcon
-                htmlColor={palette.uncategorized.white}
-                sx={{ fontSize: 20 }}
-              />
-              +7 (928) 880-72-52
-            </MuiLink>
+            <PhoneLink
+              href={KrasnodarPhoneUrl}
+              text={ContactsEnum.KRASNODAR_PHONE}
+              placeText="Краснодар"
+            />
           </SHeaderTopPhonesWrap>
           {/*<SHeaderTopLinksWrap>*/}
           {/*  <MuiLink component={Link} href="/auth">*/}

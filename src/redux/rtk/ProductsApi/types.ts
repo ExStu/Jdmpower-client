@@ -2,11 +2,23 @@ import { CategoryResponseDto } from "@redux/rtk/CategoriesApi/types";
 import { GenerationResponseDto } from "@redux/rtk/GenerationsApi/types";
 import { ManufactureResponseDto } from "@redux/rtk/ManufacturesApi/types";
 
+export enum GetAllProductsQueryEnum {
+  SORT_BY = "sortBy",
+  SEARCH_TERM = "searchTerm",
+  RATINGS = "ratings",
+  MIN_PRICE = "minPrice",
+  MAX_PRICE = "maxPrice",
+  CATEGORY_ID = "categoryId",
+  MANUFACTURE_ID = "manufactureId",
+  GENERATION_ID = "generationId",
+  PAGE_NUMBER = "pageNumber",
+}
+
 export enum ProductSortEnum {
-  HIGH_PRICE = "HIGH_PRICE",
-  LOW_PRICE = "LOW_PRICE",
-  NEWEST = "NEWEST",
-  OLDEST = "OLDEST",
+  HIGH_PRICE = "high-price",
+  LOW_PRICE = "low-price",
+  NEWEST = "newest",
+  OLDEST = "oldest",
 }
 export interface ProductResponseDto {
   id: number;
@@ -60,7 +72,7 @@ export interface GetAllProductResponseDto {
 }
 
 export interface GetAllProductQueryDto {
-  sort?: ProductSortEnum;
+  sortBy?: ProductSortEnum;
   searchTerm?: string;
   ratings?: string;
   minPrice?: string;
@@ -69,4 +81,8 @@ export interface GetAllProductQueryDto {
   manufactureId?: string;
   generationId?: string;
   pageNumber?: string;
+}
+
+export interface ProductSearchQueryArgDto {
+  searchTerm: string;
 }

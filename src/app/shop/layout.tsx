@@ -1,4 +1,4 @@
-import React from "react";
+import { ReactNode } from "react";
 
 import { SShop, SShopBg } from "./styled";
 
@@ -7,7 +7,7 @@ export const metadata = {
   description: "Каталог всех запчастей и тюнинга магазина JdmPower",
 };
 
-const ShopLayout = ({ children }: { children: React.ReactNode }) => {
+const ShopLayout = ({ children }: { children: ReactNode }) => {
   return (
     <SShopBg>
       <SShop>{children}</SShop>

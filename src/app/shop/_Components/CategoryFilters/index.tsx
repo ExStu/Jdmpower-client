@@ -1,8 +1,13 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
 import { CategoryResponseDto } from "@redux/rtk/CategoriesApi/types";
+import {
+  GetAllProductQueryDto,
+  GetAllProductsQueryEnum,
+} from "@redux/rtk/ProductsApi/types";
 
 import Checkbox from "@Components/UI/Checkbox";
 import { FormControl } from "@Components/UI/FormControl";
@@ -11,6 +16,8 @@ import Typography from "@Components/UI/Typography";
 
 import { SFiltersWrap } from "../styled";
 
+import { useFilters } from "@Hooks/useFilters";
+
 interface ICategoryFilters {
   categories: CategoryResponseDto[];
 }
@@ -18,8 +25,22 @@ interface ICategoryFilters {
 const CategoryFilters: FC<ICategoryFilters> = ({ categories }) => {
   const { control } = useForm();
 
-  const handleCheckbox = (slug: string) => {
-    console.log(slug);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const { createQueryString, updateQueryParams } = useFilters();
+  const categoryId = searchParams.get(GetAllProductsQueryEnum.CATEGORY_ID);
+
+  const handleCheckbox = (id: number) => {
+    if (searchParams.get(GetAllProductsQueryEnum.CATEGORY_ID) !== id.toString()) {
+      router.push(
+        pathname +
+          "?" +
+          createQueryString(GetAllProductsQueryEnum.CATEGORY_ID, id.toString()),
+      );
+    } else {
+      updateQueryParams(GetAllProductsQueryEnum.CATEGORY_ID, "");
+    }
   };
 
   return (
@@ -36,8 +57,9 @@ const CategoryFilters: FC<ICategoryFilters> = ({ categories }) => {
                     size="small"
                     onChange={(e) => {
                       onChange(e);
-                      handleCheckbox(item.slug);
+                      handleCheckbox(item.id);
                     }}
+                    checked={categoryId === item.id.toString()}
                   />
                 )}
                 control={control}

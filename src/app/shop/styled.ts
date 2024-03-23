@@ -73,3 +73,8 @@ export const SProductsSkeletonWrap = styled(Box)(() => ({
   gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
   gap: "20px",
 }));
+
+export const SShopPaginationWrap = styled("div")(() => ({
+  display: "flex",
+  justifyContent: "center",
+}));

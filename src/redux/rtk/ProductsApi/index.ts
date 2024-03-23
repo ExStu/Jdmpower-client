@@ -1,6 +1,11 @@
 import { jdmpowerApi as api } from "@redux/api";
 
-import { GetAllProductQueryDto, GetAllProductResponseDto } from "./types";
+import {
+  GetAllProductQueryDto,
+  GetAllProductResponseDto,
+  ProductResponseDto,
+  ProductSearchQueryArgDto,
+} from "./types";
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -8,7 +13,7 @@ const injectedRtkApi = api.injectEndpoints({
       query: (queryArg) => ({
         url: "/products",
         params: {
-          sort: queryArg.sort,
+          sortBy: queryArg.sortBy,
           searchTerm: queryArg.searchTerm,
           ratings: queryArg.ratings,
           minPrice: queryArg.minPrice,
@@ -20,8 +25,23 @@ const injectedRtkApi = api.injectEndpoints({
         },
       }),
     }),
+    getProductsBySearch: build.query<ProductResponseDto[], ProductSearchQueryArgDto>(
+      {
+        query: (queryArg) => ({
+          url: "/products/search",
+          params: {
+            searchTerm: queryArg.searchTerm,
+          },
+        }),
+      },
+    ),
   }),
 });
 export { injectedRtkApi as ProductsApi };
 
-export const { useGetAllProductsQuery, useLazyGetAllProductsQuery } = injectedRtkApi;
+export const {
+  useGetAllProductsQuery,
+  useLazyGetAllProductsQuery,
+  useGetProductsBySearchQuery,
+  useLazyGetProductsBySearchQuery,
+} = injectedRtkApi;

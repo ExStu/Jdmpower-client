@@ -27,6 +27,7 @@ interface IAutocompleteControlled {
   onSelect?: any;
   onChange?: any;
   placeholder?: string;
+  fullWidth: boolean;
 }
 
 const AutocompleteControlled = React.forwardRef(
@@ -42,6 +43,7 @@ const AutocompleteControlled = React.forwardRef(
       onSelect = () => {},
       onChange: handleOnChange = () => {},
       placeholder,
+      fullWidth,
       ...restProps
     }: IAutocompleteControlled,
     ref,
@@ -69,6 +71,7 @@ const AutocompleteControlled = React.forwardRef(
             disableClearable={!value}
             clearIcon={<ClearIcon />}
             value={value || ""}
+            fullWidth={fullWidth}
             {...rest}
             onChange={(e, v, r, d) => {
               onSelect(e, v, r, d);

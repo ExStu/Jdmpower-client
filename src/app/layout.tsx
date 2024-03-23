@@ -4,6 +4,7 @@ import Providers from "../Providers";
 
 import type { Metadata } from "next";
 
+import Footer from "@Layout/Footer";
 import Header from "@Layout/Header";
 
 export const metadata: Metadata = {
@@ -25,6 +26,7 @@ const RootLayout = ({
         <Providers>
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 
+import Box from "@Components/UI/Box";
 import Button from "@Components/UI/Button";
 import { FormControl } from "@Components/UI/FormControl";
 
@@ -48,6 +49,17 @@ export const SHeaderMiddleSearchWrap = styled("div")(() => ({
   display: "flex",
   alignItems: "center",
   width: "50%",
+}));
+
+export const SHeaderMiddleSearchOptionWrap = styled(Box)(() => ({
+  display: "flex",
+  gap: "8px",
+}));
+
+export const SHeaderMiddleSearchOptionContent = styled("div")(() => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
 }));
 
 export const SHeaderMiddleSearchBtn = styled(Button)(() => ({
